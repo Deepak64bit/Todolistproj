@@ -4,7 +4,7 @@ CREATE TABLE TASKTABLE (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        taskname TEXT,
        creation DATETIME,
-       due DATE,
+       due DATETIME,
        details TEXT,
-       progress TEXT,
+       progress TEXT
        );    
