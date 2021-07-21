@@ -1,5 +1,4 @@
 import os 
-import random
 from flask import Flask,render_template
 from . import db
 
