@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+<h1 class="display-1">Task details</h1>
+<p>
+  <h6 class="display-6">
+    <u class="name">{{taskname}}</u>
+        <div>
+            <span class="badge bg-warning text-dark"><h4>Status:{{progress}}</h4></span>
+        </div>
+    <h5 class="badge bg-info text-dark">Created on:</h5>
+    (<span class="selldate">{{creation}}</span>)
+    <span class="badge bg-dark">Due timing:</span>
+    (<span class="selldate">{{due}}</span>)
+  </h6>
+</p>
+<p class="description"> 
+  {{details}}
+</p>
+<div class="btn-group" role="group" aria-label="Basic example"></div> 
+    {%if prev %}
+        <a class="btn btn-primary" href="/{{prev}}"> Previous </a>
+    {% endif %}
+
+    {%if next %}
+        <a class="btn btn-primary" href="/{{next}}"> Next </a>  
+    {%endif%}
+        
+    <a class="btn btn-primary" href="{{url_for('task.dashboard')}}">Go Back</a>
+    </div>
+
+
+{% endblock %}

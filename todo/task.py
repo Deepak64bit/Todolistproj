@@ -5,7 +5,7 @@ from flask import g
 from . import db
 
 bp = Blueprint("task", "task", url_prefix="")
-
+max=0
 def format_date(d):
     if d:
         v = d.strftime('%Y-%m-%d %H:%M:%S')
@@ -26,6 +26,32 @@ def dashboard():
     data = cursor.fetchall()
     return render_template('index.html', TASKTABLE = data, order="desc" if order=="asc" else "asc")
 
+@bp.route("/<id>")
+def task_details(id): 
+    conn = db.get_db()
+    cursor = conn.cursor()
+    cursor.execute("select id,taskname,creation,due,details,progress from TASKTABLE where id = ?",[id])
+    task = cursor.fetchone()
+    id,taskname,creation,due,details,progress = task
+    id = int(id)
+    global max
+    if(id>max):
+        max=id
+    if id == 1:
+        prev = None
+    else:
+        prev = id - 1
+    next = id + 1
+    if (next>max):
+        next= None
+    data = dict(id = id,
+                name = taskname,
+                creation = datetime.datetime.strptime(creation, '%Y-%m-%d %H:%M'),
+                due =  datetime.datetime.strptime(due, '%Y-%m-%d\t%H:%M'),
+                details = details, 
+                progress = progress
+                )
+    return render_template("taskdetails.html", **data,prev=prev,next=next)
 
 @bp.route("/add", methods=["GET","POST"])
 def add():
@@ -44,12 +70,13 @@ def add():
         return render_template("edittask.html", **data)
 
     elif request.method == "POST":
+        global max
+        max+=1
         details = request.form.get('details')
-        creation = datetime.datetime.today().strftime("%Y-%m-%d")
+        creation = datetime.datetime.today().strftime("%Y-%m-%d %H:%M")
         taskname= request.form.get("taskname")
         due=request.form.get("due")
         due=due.replace("T","\t")
-        print(due)
         progress="in progress"
         cursor.execute("INSERT INTO  TASKTABLE  (taskname, creation, due, details,progress) VALUES (?,?,?,?,?)",(taskname, creation, due, details,progress))        
         conn.commit()

@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-    <p>
-    <a class="btn btn-primary" href="{{url_for('task.add')}}">Add Schedule</a>
-    </p>
-  
+    
           <h4 class="display-4">List of tasks</h4>
           <p>
             <table class="table table-striped">
@@ -18,7 +15,7 @@
               </thead>
               {% for id,taskname,creation,due,progress in TASKTABLE %}
               <tr>              
-                <td class="petname">{{id}} </td>
+                <td class="petname"><a href="{{url_for('task.task_details', id=id)}}">{{id}}</a> </td>
                 <td class="petname">{{taskname}} </td>
                 <td class="petbought">{{creation}}</td>
                 <td class="petsold">{{due}}</td>
@@ -27,5 +24,9 @@
               
               {%endfor%}
             </table>
+            <p>
+                <a class="btn btn-primary" href="{{url_for('task.add')}}">Add Schedule</a>
+            </p>
+              
           </p>
 {% endblock %}
