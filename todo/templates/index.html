@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block body %}
+    <p>
+    <a class="btn btn-primary" href="{{url_for('task.add')}}">Add Schedule</a>
+    </p>
+  
+          <h4 class="display-4">List of tasks</h4>
+          <p>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col"> <a href="/?order_by=id&order={{order}}">Task ID</a> </th>
+                <th scope="col"> <a href="/?order_by=taskname&order={{order}}">Title</a>  </th>
+                <th scope="col"> <a href="/?order_by=creation&order={{order}}">Created on</a>  </th>
+                <th scope="col"> <a href="/?order_by=due&order={{order}}">Scheduled to</a> </th>
+                <th scope="col"> <a href="/?order_by=progress&order={{order}}">Progress</a> </th>
+              </tr>
+              </thead>
+              {% for id,taskname,creation,due,progress in TASKTABLE %}
+              <tr>              
+                <td class="petname">{{id}} </td>
+                <td class="petname">{{taskname}} </td>
+                <td class="petbought">{{creation}}</td>
+                <td class="petsold">{{due}}</td>
+                <td class="petspecies">{{progress}}</td>
+              </tr>
+              
+              {%endfor%}
+            </table>
+          </p>
+{% endblock %}
