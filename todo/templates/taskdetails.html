@@ -7,22 +7,26 @@
         <div>
             <span class="badge bg-warning text-dark"><h4>Status:{{progress}}</h4></span>
         </div>
-    <h5 class="badge bg-info text-dark">Created on:</h5>
+    <h3 class="badge bg-info text-dark" style="font-size: medium;" >Created on:</h3>
     (<span class="selldate">{{creation}}</span>)
-    <span class="badge bg-dark">Due timing:</span>
+    <span class="badge bg-dark" style="font-size: medium;">Due timing:</span>
     (<span class="selldate">{{due}}</span>)
   </h6>
 </p>
 <p class="description"> 
+   <b>Details of the event are as follows:</b> <br>
   {{details}}
+</p>
+<p>
+    <a class="btn btn-primary" href="{{url_for('task.edit',id=id)}}">Update</a>
 </p>
 <div class="btn-group" role="group" aria-label="Basic example"></div> 
     {%if prev %}
-        <a class="btn btn-primary" href="/{{prev}}"> Previous </a>
+        <a class="btn btn-primary" href="/{{prev}}">&laquo; Previous </a>
     {% endif %}
 
     {%if next %}
-        <a class="btn btn-primary" href="/{{next}}"> Next </a>  
+        <a class="btn btn-primary" href="/{{next}}"> Next&raquo; </a>  
     {%endif%}
         
     <a class="btn btn-primary" href="{{url_for('task.dashboard')}}">Go Back</a>
