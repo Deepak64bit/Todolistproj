@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+
+<h1 class="display-1">Create task</h1>
+
+<h6> created time will be set default</h6>
+
+<form action="{{url_for('task.edit',id=id)}}" method="POST">
+    <div class="mb-3">
+      <label for = "description" class="form-label">Title</label><br/>
+      <textarea rows="2" id="description" class="form-control"
+                name="taskname">
+        {{taskname}}
+      </textarea>
+    </div>
+
+    <label for="due">Due by (date and time):</label>
+    <input type="datetime-local" id="due" name="due">
+    
+
+    <form action="{{url_for('task.edit',id=id)}}" method="POST">
+        <div class="mb-3">
+          <label for = "description" class="form-label">Details</label><br/>
+          <textarea rows="10" id="description" class="form-control"
+                    name="details">
+            {{details}}
+          </textarea>
+        </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+
+</form>
+</p>
+{% endblock %}
