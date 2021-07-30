@@ -1,1 +1,1 @@
-web: gunicorn --workers 5 todo:app()
+web: gunicorn --workers 5 todo:app
