@@ -1,31 +1,79 @@
 {% extends "base.html" %}
 {% block body %}
-    
-          <h4 class="display-4">List of tasks</h4>
+<style>
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #3eba00;
+}
+.button1:hover {
+  background-color: #44ba00;
+  color: white;
+}
+  .button3 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #ba3500;
+}
+.button3:hover {
+  background-color: #ba4400;
+  color: white;
+}
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+
+</style>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+          <h4 class="display-4">LIST OF TASKS</h4>
           <p>
             <table class="table table-striped">
               <thead class="thead-dark">
               <tr>
-                <th scope="col"> <a href="/?order_by=id&order={{order}}">Task ID</a> </th>
-                <th scope="col"> <a href="/?order_by=taskname&order={{order}}">Title</a>  </th>
-                <th scope="col"> <a href="/?order_by=creation&order={{order}}">Created on</a>  </th>
-                <th scope="col"> <a href="/?order_by=due&order={{order}}">Scheduled to</a> </th>
-                <th scope="col"> <a href="/?order_by=progress&order={{order}}">Progress</a> </th>
+                <th scope="col"> <a style="text-decoration: none;color:  rgb(18, 2, 160);"href="/?order_by=taskname&order={{order}}">Task ID</a>  </th>
+                <th scope="col"> <a style="text-decoration: none;color:  rgb(18, 2, 160);"href="/?order_by=taskname&order={{order}}">Title</a>  </th>
+                <th scope="col"> <a style="text-decoration: none; color: rgb(18, 2, 160);" href="/?order_by=creation&order={{order}}">Created on</a>  </th>
+                <th scope="col"> <a style="text-decoration: none; color: rgb(18, 2, 160);" href="/?order_by=due&order={{order}}">Scheduled to</a> </th>
+                <th scope="col"> <a style="text-decoration: none; color: rgb(18, 2, 160);" href="/?order_by=progress&order={{order}}">Progress</a> </th>
+                <th scope="col">  &emsp;  Actions    </th>
               </tr>
               </thead>
               {% for id,taskname,creation,due,progress in TASKTABLE %}
-              <tr>              
-                <td class="petname"><a href="{{url_for('task.task_details', id=id)}}">{{id}}</a> </td>
-                <td class="petname">{{taskname}} </td>
-                <td class="petbought">{{creation}}</td>
-                <td class="petsold">{{due}}</td>
-                <td class="petspecies">{{progress}}</td>
+              <tr>             
+                <td class="task"><a href="{{url_for('task.task_details', id=id)}}">{{id}}</a> </td>
+                <td class="task">{{taskname}} </td>
+                <td class="task">{{creation}}</td>
+                <td class="task">{{due}}</td>
+            {%if progress =="overdue" %}
+                <td><button type="submit" class="button button3">{{progress}}</button></td>
+            {%endif%}
+            
+            {% if progress ==  "in progress" %}
+                <td><button type="submit" class="button button2">{{progress}}</button></td>
+            {%endif%}
+            
+            {% if progress == "Success" %}
+                <td><button type="submit" class="button button1">{{progress}}</button></td>
+            {%endif%}                
+                <td>
+                    <a href="{{url_for('task.deletetask', id=id)}}">
+                    <img src="{{url_for('static', filename='trash.png')}}" width="25" height="30"></a>
+                    <a style="font-size:small;"class="btn btn-primary" href="{{url_for('task.edit_progress',id=id,progress=progress)}}"> Set progress</a>
+                </td>
               </tr>
               
               {%endfor%}
             </table>
             <p>
-                <a class="btn btn-primary" href="{{url_for('task.add')}}">Add Schedule</a>
+                <a class="btn btn-primary"  href="{{url_for('task.add')}}">Add Schedule</a>
             </p>
               
           </p>
