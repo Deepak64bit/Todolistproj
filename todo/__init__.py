@@ -20,4 +20,5 @@ def create_app(test_config=None):
     from . import db 
     db.init_app(app) 
     return app
-    
+if __name__=="__main__":
+    app.run
