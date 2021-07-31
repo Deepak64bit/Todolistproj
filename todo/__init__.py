@@ -1,9 +1,9 @@
 import os 
 from flask import Flask,render_template
 from . import db
-app=Flask(__name__)
+
 def create_app(test_config=None):
-    app=Flask("todo")
+    app=Flask(__name__)
     app.config.from_mapping(DATABASE=os.path.join(app.instance_path, 'todolist.sqlite'))
     
     if test_config is not None:
@@ -21,4 +21,4 @@ def create_app(test_config=None):
     db.init_app(app) 
     return app
 if __name__=="__main__":
-    app.run
+    create_app().run
